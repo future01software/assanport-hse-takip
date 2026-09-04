@@ -1,0 +1,14 @@
+# Kisisel veri iceren dosyalar asla repoya girmez
+veri/
+*_veri.json
+*_yedek*.json
+isg_egitim_takip*.json
+
+# Firebase / arac dosyalari
+.firebase/
+firebase-debug.log
+firestore-debug.log
+database-debug.log
+ui-debug.log
+node_modules/
+.DS_Store

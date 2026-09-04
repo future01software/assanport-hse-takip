@@ -1,0 +1,31 @@
+{
+  "rules": {
+    "roles": {
+      ".read": "auth != null && root.child('roles').child(auth.uid).child('role').val() === 'admin'",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && root.child('roles').child(auth.uid).child('role').val() === 'admin' && root.child('roles').child(auth.uid).child('active').val() !== false",
+        ".validate": "newData.hasChildren(['email','role'])",
+        "role":   { ".validate": "newData.isString() && (newData.val() === 'admin' || newData.val() === 'viewer')" },
+        "email":  { ".validate": "newData.isString() && newData.val().length <= 254" },
+        "active": { ".validate": "newData.isBoolean()" },
+        "createdAt": { ".validate": "newData.isString()" },
+        "createdBy": { ".validate": "newData.isString()" },
+        "$diger": { ".validate": false }
+      }
+    },
+
+    "isg_egitim_takip": {
+      ".read": "auth != null && root.child('roles').child(auth.uid).exists() && root.child('roles').child(auth.uid).child('active').val() !== false",
+      ".write": "auth != null && root.child('roles').child(auth.uid).child('role').val() === 'admin' && root.child('roles').child(auth.uid).child('active').val() !== false",
+      "employees": { ".validate": "newData.hasChildren() || !newData.exists()" },
+      "trainings": { ".validate": "newData.hasChildren() || !newData.exists()" },
+      "users": { ".validate": false }
+    },
+
+    "$diger": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
